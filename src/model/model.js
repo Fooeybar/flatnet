@@ -15,83 +15,78 @@ limitations under the License.
 */
 
 const {writeFileSync,readFileSync,existsSync}=require('fs'); 
-const {Random,Array:{ParseInt}}=require('../ext');
-const actions=require('../actions/actions');
+const {Random}=require('../ext');
+const Actions=require('../actions/actions');
 
 const New=(map=[])=>{
-    return{
+    return {
         map:[...map]
-        ,i:0
-        ,inputs:[]
-        ,out:0
-        ,var:0
         ,fit:0
+        ,i:0
+        ,m:0
+        ,r0:0
+        ,reg:[0]
+        ,r1:0
+        ,r2:0
+        ,r3:0
     };
 };
 
 const Reset=(model=New())=>{
-    model.i=0;
-    model.inputs=[];
-    model.out=0;
-    model.var=0;
     model.fit=0;
+    model.i=0;
+    model.m=0;
+    model.r=0;
+    model.reg=[0];
+    model.r1=0;
+    model.r2=0;
+    model.r3=0;
+    return model;
+};
+
+const Eval=(model=New(),inputs=[])=>{
+    model.m=0;
+    while(model.m>=0&&model.m<model.map.length){
+        Actions[model.map[model.m]][1](model,inputs);
+        model.m++;
+    }
     return model;
 };
 
 const LoadMap=(name='model')=>{
-    let map=[];
-    if(existsSync(`./${name}.fnet`)){
-        map=readFileSync(`./${name}.fnet`,{encoding:'utf-8'}).split(',').map(ele=>parseInt(ele));
-    }
-    return map;
-};
-
-const Eval=(model=New(),inputs=[],m=0)=>{
-    model.inputs=inputs;
-    const args={m:m,loops:[]};
-    
-    const COUNT=model.map.length;
-    let count=COUNT;
-    while(count-->0){
-        if(args.m<0||args.m>=COUNT)break;
-        
-        let ret=actions[model.map[args.m]](model,args);
-        if(ret===undefined)args.m++;
-        else{
-            let int=parseInt(ret);
-            args.m=(int===int)?int:args.m+1;
-        }
-    }
-    return model;
+    if(!existsSync(`./${name}.fnet`))return;
+    return readFileSync(`./${name}.fnet`,{encoding:'utf-8'})
+        .split(',')
+        .map(ele=>parseInt(ele));
 };
 
 const Mutate=(model=New(),count=3,ratio=0.45)=>{
     while(count-->0){
         let index=Random.Index(model.map);
-        if(Random.Float(1,0)<=ratio)model.map.splice(index,0,Random.Index(actions));
+        if(Random.Float(1,0)<=ratio)model.map.splice(index,0,Random.Index(Actions));
         else model.map.splice(index,1);
     }
     return model;
 };
 
 const SaveMap=(map=[],name='model')=>{
-    name=''+name;
-    if(map.length>0&&name.length>0){
-        writeFileSync(`./${name}.fnet`,map.join(','),{encoding:'utf-8'});
-    }
-    return map;
+    if(map.length<1)return false;
+    writeFileSync(`./${name}.fnet`,map.join(','),{encoding:'utf-8'});
+    return true;
 };
 
 module.exports={
     New
     ,Reset
-    ,LoadMap
     ,Eval
     ,Mutate
+    ,LoadMap
     ,SaveMap
 };
 
 if(module.parent)return;
+
+{
 if(process.argv.length<3)return console.log('Model.Eval(): [map] [inputs]');
 if(process.argv.length>4)return console.log(`Error: too many arguments : [${process.argv[2]}] [${process.argv[3]}] [${process.argv.slice(4)}]`);
 
@@ -103,8 +98,13 @@ if(premap<0){
     if(int===int)premap=int;
 }
 
+const {Array:{ParseInt}}=require('../ext');
+
 let map=ParseInt((premap>-1)?args[0].split(','):LoadMap(args[0]));
+
+if(map.length<1)return console.log('Error: map has no length');
 
 let inputs=(args.length===2)?ParseInt(args[1].split(',')):[];
 
-console.log(`Model.Eval():`,Eval(New(map),inputs).out);
+console.log(`Model.Eval():`,Eval(New(map),inputs));
+}

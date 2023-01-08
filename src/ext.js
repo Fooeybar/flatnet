@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Flatten
 const Flatten=(any,out=[])=>{
     let type=typeof(any);
@@ -37,7 +37,7 @@ const Flatten=(any,out=[])=>{
 };
 module.exports.Flatten=Flatten;
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Shuffle
 const Shuffle=(arr=[])=>{
     let out=[];
@@ -52,7 +52,7 @@ const Shuffle=(arr=[])=>{
 
 module.exports.Shuffle=Shuffle;
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Random
 const Float=(max=1,min=0)=>(Math.random()*(max-min)+min);
 
@@ -66,7 +66,7 @@ const Property=(obj={})=>(obj[Element(Object.keys(obj))]);
 
 module.exports.Random={Float,Integer,Element,Index,Property};
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Sort
 const Swap=(arr=[],a=0,b=1)=>{
     let t=arr[a];
@@ -176,7 +176,7 @@ module.exports.Sort={
     ,ReverseNew
 };
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Delay
 const Time=require('perf_hooks').performance.now;
 const Delay=(milliseconds=0)=>{
@@ -186,7 +186,7 @@ const Delay=(milliseconds=0)=>{
 
 module.exports.Delay=Delay;
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Math
 const ZeroRound=(x)=>(x>0?Math.floor(x):x<0?Math.ceil(x):0);
 
@@ -197,7 +197,7 @@ const IsPrime=(num)=>{
 
 module.exports.Math={ZeroRound,IsPrime};
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//CSV
 //parse arr of objs to csv
 const ToCSV=(rows=[])=>{
@@ -217,7 +217,7 @@ const ToCSV=(rows=[])=>{
     }
     return file;
 };
-
+//————————————————————————————————————————————————————————————————————————————————————————
 //parse CSV to arr of objs
 const ToArray=(file='')=>{
     let arr=[];
@@ -239,7 +239,7 @@ const ToArray=(file='')=>{
 
 module.exports.CSV={ToCSV,ToArray};
 }
-
+//————————————————————————————————————————————————————————————————————————————————————————
 {//Array
 const Compare1D=(arr1=[],arr2=[])=>{
     if(arr1.length!==arr2.length)return false;
@@ -261,3 +261,4 @@ module.exports.Array={
     ,ParseInt
 };
 }
+//————————————————————————————————————————————————————————————————————————————————————————

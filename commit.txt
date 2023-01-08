@@ -1,6 +1,13 @@
-version 1.0.0
+version 1.0.1
 
-"initial" commit
+--reduced action count
 
-basic functionality
+--changed actions to 2d array [id,func]
 
+--network object is now a function that returns a new net object with method properties
+
+--model objects have new properties:
+    -m = current map index
+    -r0 = register pointer 0
+    -reg = registers
+    -r1, r2, r3 = register pointers (not functional yet)

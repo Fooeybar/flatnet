@@ -31,19 +31,19 @@ while(inputs.length<1000){
 const x=Random.Integer(99999,11111);
 const y=Random.Integer(99999,11111);
 
-Network.Train(
-    Network.New(10000,3,0.35,Model.LoadMap(NAME))
-    ,inputs
-    ,targets
-    ,{
-        log:true
-        ,name:NAME
-        ,keep_ratio:0.25
-        ,mut_count:3
-        ,mut_ratio:0.25
-        ,End:(net)=>(
-            net.high===inputs.length
-            &&Model.Eval(Model.New(net[net.h].map),[x,y]).out===(x*y)
-        )?true:false
+Network({
+    size:10000
+    ,mut_count:3
+    ,mut_ratio:0.25
+    ,keep_ratio:0.25
+    ,map:Model.LoadMap(NAME)
+})
+.Train(inputs,targets,{
+    logging:true
+    ,name:NAME
+    ,End:(net)=>{
+        if(net.high<inputs.length)return false;
+        let model=Model.Eval(Model.New(net[net.h].map),[x,y]);
+        return (model.reg[model.r0]===(x*y))?true:false;
     }
-);
+});
