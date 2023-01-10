@@ -111,8 +111,8 @@ const Network=(config=STD)=>{
         opts={...TRAIN,...opts};
         net.cycles=0;
         
-        const Time=((Func)=>()=>~~Func())(require('perf_hooks').performance.now);
-        const train_start=Time();
+        const {Timer}=require('../ext');
+        const train_start=Timer();
 
         while(true){
             if(opts.logging)console.log('Cycle '+net.cycles+'\n');
@@ -139,7 +139,7 @@ const Network=(config=STD)=>{
             net.Cycle();
         }
         
-        const train_end=~~(((Time()-train_start)*0.1)/60)*0.01;
+        const train_end=~~(((Timer()-train_start)*0.1)/60)*0.01;
         if(opts.logging)console.log(`Train time ${train_end}m`);
         
         return net;

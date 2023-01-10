@@ -177,16 +177,6 @@ module.exports.Sort={
 };
 }
 //————————————————————————————————————————————————————————————————————————————————————————
-{//Delay
-const Time=require('perf_hooks').performance.now;
-const Delay=(milliseconds=0)=>{
-    let time=Time();
-    while(milliseconds>~~(Time()-time)){}
-};    
-
-module.exports.Delay=Delay;
-}
-//————————————————————————————————————————————————————————————————————————————————————————
 {//Math
 const ZeroRound=(x)=>(x>0?Math.floor(x):x<0?Math.ceil(x):0);
 
@@ -247,13 +237,15 @@ const Compare1D=(arr1=[],arr2=[])=>{
     return true;
 };
 
-const ParseInt=(arr=[])=>{
-    let out=[];
+const ParseInt=(arr=[],with_rejects=false)=>{
+    let retain=[];
+    let reject=[];
     for(let i=0;i<arr.length;i++){
         let int=parseInt(arr[i]);
-        if(int===int)out.push(int);
+        if(int===int)retain.push(int);
+        else reject.push(arr[i]);
     }
-    return out;
+    return (with_rejects)?[retain,reject]:retain;
 };
     
 module.exports.Array={
@@ -262,3 +254,8 @@ module.exports.Array={
 };
 }
 //————————————————————————————————————————————————————————————————————————————————————————
+{//Timer
+const Timer=((Func)=>()=>~~Func())(require('perf_hooks').performance.now);
+
+module.exports.Timer=Timer;
+}

@@ -1,13 +1,21 @@
-version 1.0.1
+version 1.0.2
 
---reduced action count
+--increased action count
+    -added reg pointer movements
+    -cloned r0 operations to new pointers
+    -added 'repeat_next' action
+    -added loops: these cause an almost impossible increase in
+        the time for a network to find an optimal solution.
+    -added break, continue actions
+    -added return value action for future functionality
 
---changed actions to 2d array [id,func]
+--changed register pointers to be added during runtime:
+    -can be modified before the program runs '/src/model/model.js' -> KEYS
+    -future solution will modify through code during runtime
 
---network object is now a function that returns a new net object with method properties
+--added '/src/model/profile.js'
+    -to show the time delta of resetting object properties vs creating new objects
 
---model objects have new properties:
-    -m = current map index
-    -r0 = register pointer 0
-    -reg = registers
-    -r1, r2, r3 = register pointers (not functional yet)
+--added fun property to models
+    -will store list of functions
+    -functions and/or loops might kill it all, if so will back off loops first

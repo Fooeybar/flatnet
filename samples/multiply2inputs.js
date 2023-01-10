@@ -21,7 +21,7 @@ const NAME=process.argv[2]||process.argv[1].slice(process.argv[1].lastIndexOf('/
 let inputs=[];
 let targets=[];
 
-while(inputs.length<1000){
+while(inputs.length<100){
     let a=Random.Integer(100,3);
     let b=Random.Integer(100,3);
     inputs.push([a,b]);
@@ -32,7 +32,7 @@ const x=Random.Integer(99999,11111);
 const y=Random.Integer(99999,11111);
 
 Network({
-    size:10000
+    size:100
     ,mut_count:3
     ,mut_ratio:0.25
     ,keep_ratio:0.25

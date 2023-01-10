@@ -16,31 +16,37 @@ limitations under the License.
 
 const {writeFileSync,readFileSync,existsSync}=require('fs'); 
 const {Random}=require('../ext');
-const Actions=require('../actions/actions');
+
+const KEYS=['r0','r1','r2','r3'];
+const Actions=require('../actions/actions')(KEYS);
 
 const New=(map=[])=>{
-    return {
-        map:[...map]
+    let model={
+        map:[]
         ,fit:0
         ,i:0
         ,m:0
-        ,r0:0
-        ,reg:[0]
-        ,r1:0
-        ,r2:0
-        ,r3:0
+        ,reg:[]
+        ,fun:[]
     };
+    for(let m=0;m<map.length;m++)model.map[m]=map[m];
+    for(let k=0;k<KEYS.length;k++){
+        model[KEYS[k]]=k;
+        model.reg.push(0);
+    }
+    return model;
 };
 
 const Reset=(model=New())=>{
     model.fit=0;
     model.i=0;
     model.m=0;
-    model.r=0;
-    model.reg=[0];
-    model.r1=0;
-    model.r2=0;
-    model.r3=0;
+    model.reg=[];
+    model.fun=[];
+    for(let k=0;k<KEYS.length;k++){
+        model[KEYS[k]]=k;
+        model.reg.push(0);
+    }
     return model;
 };
 
@@ -85,26 +91,4 @@ module.exports={
 };
 
 if(module.parent)return;
-
-{
-if(process.argv.length<3)return console.log('Model.Eval(): [map] [inputs]');
-if(process.argv.length>4)return console.log(`Error: too many arguments : [${process.argv[2]}] [${process.argv[3]}] [${process.argv.slice(4)}]`);
-
-const args=process.argv.slice(2);
-
-let premap=args[0].indexOf(',');
-if(premap<0){
-    let int=parseInt(args[0]);
-    if(int===int)premap=int;
-}
-
-const {Array:{ParseInt}}=require('../ext');
-
-let map=ParseInt((premap>-1)?args[0].split(','):LoadMap(args[0]));
-
-if(map.length<1)return console.log('Error: map has no length');
-
-let inputs=(args.length===2)?ParseInt(args[1].split(',')):[];
-
-console.log(`Model.Eval():`,Eval(New(map),inputs));
-}
+require('./cli')(module.exports,Actions.length);
