@@ -14,14 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const Flatnet={
-    Actions:require('./src/actions/actions')
-    ,Model:require('./src/model/model')
-    ,Network:require('./src/network/network')
-    ,Ext:require('./src/ext')
-};
-
-module.exports=Flatnet;
+module.exports=(ptr_count=2)=>{
+    if(~~ptr_count<=0)ptr_count=2;
+    return {
+        Actions:require('./src/actions/actions')(ptr_count)
+        ,Model:require('./src/model/model')(ptr_count)
+        ,Network:require('./src/network/network')
+        ,Ext:require('./src/ext')
+    };
+}
 
 //SDG.JN
  

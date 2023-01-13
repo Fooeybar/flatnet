@@ -1,21 +1,28 @@
-version 1.0.2
+version 1.0.3
 
---increased action count
-    -added reg pointer movements
-    -cloned r0 operations to new pointers
-    -added 'repeat_next' action
-    -added loops: these cause an almost impossible increase in
-        the time for a network to find an optimal solution.
-    -added break, continue actions
-    -added return value action for future functionality
+--added libraries
+    -import an action list
+    -immutable and non-mutating
+    -can be loaded using Model.LoadMap()
+    -added new multiply sample using a library
 
---changed register pointers to be added during runtime:
-    -can be modified before the program runs '/src/model/model.js' -> KEYS
-    -future solution will modify through code during runtime
+--added functions
+    -store a submap of actions
+    -take a pointer value as the map length
+    -called using a pointer value
+    -can be exited using flow 'return' action
 
---added '/src/model/profile.js'
-    -to show the time delta of resetting object properties vs creating new objects
+--pointers
+    -renamed as 'ptr0','ptr1','ptr2',etc
+    -now created by count, not name
+    -count is required when importing
+    -count defaults to 2 if not provided
 
---added fun property to models
-    -will store list of functions
-    -functions and/or loops might kill it all, if so will back off loops first
+--as of this version, 1.0.3, all the pre-existing major ideas have been implemented.
+
+--What's next?
+    -correct any errors that pop up
+    -finish the readme's
+    -port flatnet to C/C++ language
+    -implement new ideas
+    -train, train, train

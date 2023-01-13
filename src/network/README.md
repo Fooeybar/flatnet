@@ -1,12 +1,11 @@
 # flatnet
 
-![flatnet](https://img.shields.io/badge/flatnet-v1.0.1-green)
+![flatnet](https://img.shields.io/badge/flatnet-v1.0.0-green)
+![npm](https://img.shields.io/npm/v/flatnet)
 ![license](https://img.shields.io/npm/l/flatnet)
 Made with ![linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
 
 ## *flatnet is an evolutionary algorithm with models as action lists*
-
-<br/>
 
 `npm i flatnet`
 
@@ -14,18 +13,20 @@ Made with ![linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColo
 
 <br/>
 
-some description + other words soon
+some description + other words
 
 <br/>
 
 ---
 
-- [Network](https://bitbucket.org/fooybar/flatnet/src/master/src/network)
-- [Model](https://bitbucket.org/fooybar/flatnet/src/master/src/model)
-- [Actions](https://bitbucket.org/fooybar/flatnet/src/master/src/actions)
-- [Samples](https://bitbucket.org/fooybar/flatnet/src/master/samples)
+- [Flatnet](#flatnet)
+- [Network](#network)
+- [Model](#model)
+- [Actions](#actions)
+- [Samples](#samples)
 
 <br/>
 
 ---
 
+END

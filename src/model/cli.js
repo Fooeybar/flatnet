@@ -14,7 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-module.exports=(Model,act_length)=>{
+module.exports=(ModelExp)=>{
+    const Model=ModelExp();//////////////////////////
     if(process.argv.length<3)return console.log('Model.Eval(): [map] [inputs]');
     if(process.argv.length>4)return console.log(`Error: too many arguments : [${process.argv[2]}] [${process.argv[3]}] [${process.argv.slice(4)}]`);
 
@@ -32,12 +33,12 @@ module.exports=(Model,act_length)=>{
 
     for(let m=0;m<map.length;m++){
         let val=map[m];
-        if(val<0||val>=act_length)console.log('[',map.splice(m,1)[0],'] Error: value out of range');
+        if(val<0||val>=Model.Actions.length)console.log('[',map.splice(m,1)[0],'] Error: value out of range');
     }
 
     if(map.length<1)return console.log('Error: map has no length');
 
     let inputs=(args.length===2)?ParseInt(args[1].split(',')):[];
 
-    console.log(`Model.Eval():`,Model.Eval(Model.New(map),inputs));
+    console.log(`Model.Eval():`,Model.Eval(Model(map),inputs));
 };

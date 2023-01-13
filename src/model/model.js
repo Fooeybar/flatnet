@@ -17,78 +17,62 @@ limitations under the License.
 const {writeFileSync,readFileSync,existsSync}=require('fs'); 
 const {Random}=require('../ext');
 
-const KEYS=['r0','r1','r2','r3'];
-const Actions=require('../actions/actions')(KEYS);
+module.exports=(ptr_count=2)=>{
+    if(~~ptr_count<=0)ptr_count=2;
 
-const New=(map=[])=>{
-    let model={
-        map:[]
-        ,fit:0
-        ,i:0
-        ,m:0
-        ,reg:[]
-        ,fun:[]
+    const Model=(map=[],lib=[])=>{
+        let model={
+            l:lib.length
+            ,map:[...lib,...map]
+        };
+        return Model.Reset(model);
     };
-    for(let m=0;m<map.length;m++)model.map[m]=map[m];
-    for(let k=0;k<KEYS.length;k++){
-        model[KEYS[k]]=k;
-        model.reg.push(0);
-    }
-    return model;
-};
 
-const Reset=(model=New())=>{
-    model.fit=0;
-    model.i=0;
-    model.m=0;
-    model.reg=[];
-    model.fun=[];
-    for(let k=0;k<KEYS.length;k++){
-        model[KEYS[k]]=k;
-        model.reg.push(0);
-    }
-    return model;
-};
+    Model.Reset=(model=New())=>{
+        model.fit=0;
+        model.i=0;
+        model.m=0;
+        model.fun=[];
+        model.reg=[0];
+        for(let p=0;p<ptr_count;p++)model['ptr'+p]=0;
+        return model;
+    };
+    
+    Model.Actions=require('../actions/actions')(ptr_count);
+    
+    Model.Mutate=(model=New(),count=3,ratio=0.45)=>{
+        while(count-->0){
+            let index=Random.Index(model.map,model.l);
+            if(Random.Float(1,0)<=ratio)model.map.splice(index,0,Random.Index(Model.Actions));
+            else model.map.splice(index,1);
+        }
+        return model;
+    };
+    
+    Model.Eval=(model=New(),inputs=[])=>{
+        model.m=0;
+        while(model.m>=0&&model.m<model.map.length){
+            Model.Actions[model.map[model.m]][1](model,inputs);
+            model.m++;
+        }
+        return model;
+    };
 
-const Eval=(model=New(),inputs=[])=>{
-    model.m=0;
-    while(model.m>=0&&model.m<model.map.length){
-        Actions[model.map[model.m]][1](model,inputs);
-        model.m++;
-    }
-    return model;
-};
+    Model.LoadMap=(name='model')=>{
+        if(!existsSync(`./${name}.fnet`))return;
+        return readFileSync(`./${name}.fnet`,{encoding:'utf-8'})
+            .split(',')
+            .map(ele=>parseInt(ele));
+    };
 
-const LoadMap=(name='model')=>{
-    if(!existsSync(`./${name}.fnet`))return;
-    return readFileSync(`./${name}.fnet`,{encoding:'utf-8'})
-        .split(',')
-        .map(ele=>parseInt(ele));
-};
-
-const Mutate=(model=New(),count=3,ratio=0.45)=>{
-    while(count-->0){
-        let index=Random.Index(model.map);
-        if(Random.Float(1,0)<=ratio)model.map.splice(index,0,Random.Index(Actions));
-        else model.map.splice(index,1);
-    }
-    return model;
-};
-
-const SaveMap=(map=[],name='model')=>{
-    if(map.length<1)return false;
-    writeFileSync(`./${name}.fnet`,map.join(','),{encoding:'utf-8'});
-    return true;
-};
-
-module.exports={
-    New
-    ,Reset
-    ,Eval
-    ,Mutate
-    ,LoadMap
-    ,SaveMap
+    Model.SaveMap=(model,name='model')=>{
+        if(model.map.length-model.l<1)return false;
+        writeFileSync(`./${name}.fnet`,model.map.slice(model.l).join(','),{encoding:'utf-8'});
+        return true;
+    };
+    
+    return Model;
 };
 
 if(module.parent)return;
-require('./cli')(module.exports,Actions.length);
+require('./cli')(module.exports);

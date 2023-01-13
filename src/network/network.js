@@ -15,17 +15,18 @@ limitations under the License.
 */
 
 const {Flatten,Sort}=require('../ext');
-const Model=require('../model/model');
  
-const STD={
+const CONFIG={
     size:1000
-    ,mut_count:3
-    ,mut_ratio:0.4
     ,keep_ratio:0.25
     ,Fitness:(model,target,inputs)=>{
-        if(model.reg[model.r0]===target)model.fit++;
+        if(model.reg[model.ptr0]===target)model.fit++;
     }
     ,map:[]
+    ,lib:[]
+    ,ptr_count:2
+    ,mut_count:3
+    ,mut_ratio:0.4
 };
 
 const TRAIN={
@@ -39,14 +40,16 @@ const TRAIN={
     ,End:(net)=>(net.cycles>=10000)?true:false
 };
 
-const Network=(config=STD)=>{
+const Network=(config=CONFIG)=>{
     let net=[];
     
-    for(let i in STD)net[i]=(config[i]!==undefined)?config[i]:STD[i];
+    for(let i in CONFIG)net[i]=(config[i]!==undefined)?config[i]:CONFIG[i];
     
-    net.push(Model.New(net.map));
+    const Model=require('../model/model')(net.ptr_count);
+    
+    net.push(Model(net.map,net.lib));
     while(net.length<net.size)net.push(
-        Model.Mutate(Model.New(net.map),net.mut_count,net.mut_ratio)
+        Model.Mutate(Model(net.map,net.lib),net.mut_count,net.mut_ratio)
     );
 
     net.cycles=0;
@@ -90,7 +93,7 @@ const Network=(config=STD)=>{
         let end=net_size-keep_size;
         for(let i=0;end-->0;){
             net.push(
-                Model.Mutate(Model.New(net[i].map),net.mut_count,net.mut_ratio)
+                Model.Mutate(Model(net[i].map,net.lib),net.mut_count,net.mut_ratio)
             );
             if(++i>=keep_size)i=0;
         }
@@ -118,7 +121,7 @@ const Network=(config=STD)=>{
             if(opts.logging)console.log('Cycle '+net.cycles+'\n');
             
             for(let i=0;i<inputs.length;i++){
-                net.Iterate(inputs[i],targets[i]);
+                net.Iterate(inputs[i],targets[i]);                
                 if(opts.logging)console.log('\u001b[1A\u001b[2K   Iterate: '+(~~(((i/inputs.length)*10000)*0.01)+'%'));
             }
             
@@ -131,8 +134,8 @@ const Network=(config=STD)=>{
             
             let save=parseInt(opts.Save(net));
             if(save===save&&net[save]){
-                Model.SaveMap(net[save].map,opts.name);
-                if(opts.logging)console.log(`   --Saved [${save}].map`);
+                Model.SaveMap(net[save],opts.name);
+                if(opts.logging)console.log(`   --Saved [${save}]`);
             }
             
             if(opts.End(net))break;

@@ -37,6 +37,7 @@ Network({
     ,mut_ratio:0.25
     ,keep_ratio:0.25
     ,map:Model.LoadMap(NAME)
+    ,lib:[1,44,4,19]
 })
 .Train(inputs,targets,{
     logging:true
@@ -47,3 +48,4 @@ Network({
         return (model.reg[model.ptr0]===(x*y))?true:false;
     }
 });
+ 

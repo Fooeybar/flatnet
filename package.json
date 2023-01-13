@@ -1,9 +1,9 @@
 {
   "name": "flatnet"
   
-  ,"version": "1.0.2"
+  ,"version": "1.0.3"
   
-  ,"description": "Flatnet is an evolutionary algorithm with models as action lists"
+  ,"description": "flatnet is an evolutionary algorithm that emulates an assembly-level program and architecture"
   
   ,"main": "flatnet.js"
   
