@@ -1,28 +1,17 @@
-version 1.0.3
+version 2.0.0
 
---added libraries
-    -import an action list
-    -immutable and non-mutating
-    -can be loaded using Model.LoadMap()
-    -added new multiply sample using a library
+--refactored into a single factory function
 
---added functions
-    -store a submap of actions
-    -take a pointer value as the map length
-    -called using a pointer value
-    -can be exited using flow 'return' action
+--removed functions and loops
+    Such a large increase in training time and bugs, confirms this is not a good feature for the present time
+    
+--reduced actions
 
---pointers
-    -renamed as 'ptr0','ptr1','ptr2',etc
-    -now created by count, not name
-    -count is required when importing
-    -count defaults to 2 if not provided
-
---as of this version, 1.0.3, all the pre-existing major ideas have been implemented.
-
---What's next?
-    -correct any errors that pop up
-    -finish the readme's
-    -port flatnet to C/C++ language
-    -implement new ideas
-    -train, train, train
+--removed
+    -model.inp
+    -model.i
+    These have been replaced by the 'flow' object inside Model.Eval
+    
+    -model.reg
+    
+--begun adding readme documentation

@@ -14,37 +14,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const {Network,Model,Ext:{Random}}=require('../flatnet');
+const RandomInteger=(max=1)=>(Math.floor(Math.random()*max));
+
+const {Network,Model}=require('../flatnet')();
 
 const NAME=process.argv[2]||process.argv[1].slice(process.argv[1].lastIndexOf('/')+1,process.argv[1].length-3);
 
-let inputs=[];
+let data=[];
 let targets=[];
 
-while(inputs.length<1000){
-    let a=Random.Integer(100,3);
-    let b=Random.Integer(100,3);
-    inputs.push([a,b]);
+while(data.length<1000){
+    let a=RandomInteger(100,3);
+    let b=RandomInteger(100,3);
+    data.push([a,b]);
     targets.push(a+b);
 }
-
-const x=Random.Integer(99999,11111);
-const y=Random.Integer(99999,11111);
 
 Network({
     size:10000
     ,mut_count:3
-    ,mut_ratio:0.25
-    ,keep_ratio:0.25
+    ,mut_ratio:0.20
+    ,keep_ratio:0.1
     ,map:Model.LoadMap(NAME)
 })
-.Train(inputs,targets,{
+.Train(data,targets,{
     logging:true
     ,name:NAME
     ,End:(net)=>{
-        if(net.high<inputs.length)return false;
-        let model=Model.Eval(Model.New(net[net.h].map),[x,y]);
-        return (model.reg[model.r0]===(x+y))?true:false;
+        if(net.high<data.length)return false;
+        const x=RandomInteger(99999,11111);
+        const y=RandomInteger(99999,11111);
+        let model=Model.Eval(Model(net[net.h].map),[x,y]);
+        return (model.out[0]===(x+y))?true:false;
     }
 });
 
