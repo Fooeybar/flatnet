@@ -32,11 +32,11 @@ TLDR: To quickly jump in and start training a network on data, see [Train](train
 
 `{Model,Actions,Network,Train,Ext}=require('flatnet)`
 
-- [Model](model/readme.md#model)
-- [Actions](actions/readme.md#actions)
-- [Network](network/readme.md#network)
-- [Train](train/readme.md#train)
-- [Ext](ext/readme.md#ext)
+- [Model](model/)
+- [Actions](actions/)
+- [Network](network/)
+- [Train](train/)
+- [Ext](ext/)
 
 ## Command Line
 
