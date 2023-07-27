@@ -1,17 +1,7 @@
-version 2.0.0
+version 2.1.0
 
---refactored into a single factory function
+--finished readme's for all files
 
---removed functions and loops
-    Such a large increase in training time and bugs, confirms this is not a good feature for the present time
-    
---reduced actions
+--Separation of concerns applied to flatnet module objects
 
---removed
-    -model.inp
-    -model.i
-    These have been replaced by the 'flow' object inside Model.Eval
-    
-    -model.reg
-    
---begun adding readme documentation
+--removed model.l and lib: the functionality is not seen as useful at this time
