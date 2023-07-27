@@ -19,7 +19,7 @@ SDG.JN
 
 # Train
 
-![flatnet](https://img.shields.io/badge/flatnet-v2.1.0-orange)
+![flatnet](https://img.shields.io/badge/flatnet-v2.1.4-orange)
 ![license](https://img.shields.io/npm/l/flatnet)
 
 `{Train}=require('flatnet')`
@@ -28,7 +28,7 @@ Simple training function: Evaluate, Fitness, Save?, End?, Cycle, repeat
 
 - `Train(net,data=[],targets=[],config=CONFIG)`
 - `data` array:
-	- Elements in the array can be any variable, they will be [Flattened](../ext/readme.md#flatten)
+	- Elements in the array can be any variable, they will be [Flattened](../ext/README.md#flatten)
 	- Each element should contain all the inputs for a single step evaluation
 - `targets` array:
 	- Elements in the array can be any variable

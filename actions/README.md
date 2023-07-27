@@ -19,7 +19,7 @@ SDG.JN
 
 # Actions
 
-![flatnet](https://img.shields.io/badge/flatnet-v2.1.0-orange)
+![flatnet](https://img.shields.io/badge/flatnet-v2.1.4-orange)
 ![license](https://img.shields.io/npm/l/flatnet)
 
 `{Actions}=require('flatnet')`
@@ -42,7 +42,7 @@ Actions are a named list of functions applied to flatnet models
 ## _CLI
 
 - Simple command line functionality
-- Also accessed by `node flatnet.js actions`, see [flatnet command line](../flatnet.md#commandline)
+- Also accessed by `node flatnet.js actions`, see [flatnet command line](../README.md#command-line)
 - If args = 0, will print and return `actions.length`
 - If args > 0, will print names of actions by integer lookup
 - `ptr_count=2`	

@@ -19,7 +19,7 @@ SDG.JN
 
 # Model
 
-![flatnet](https://img.shields.io/badge/flatnet-v2.1.0-orange)
+![flatnet](https://img.shields.io/badge/flatnet-v2.1.4-orange)
 ![license](https://img.shields.io/npm/l/flatnet)
 
 `{Model}=require('flatnet')`
@@ -117,7 +117,7 @@ model={
 
 - `Model._CLI(args=[])`
 - Simple command line functionality
-- Also accessed by `node flatnet.js model`, see [flatnet command line](../flatnet.md#commandline)
+- Also accessed by `node flatnet.js model`, see [flatnet command line](../README.md#command-line)
 - `ptr_count=2`	
 	- Flag that can be entered any place after the first two arguments
 	- Any integer

@@ -19,14 +19,14 @@ SDG.JN
 
 # flatnet
 
-![flatnet](https://img.shields.io/badge/flatnet-v2.1.0-orange)
+![flatnet](https://img.shields.io/badge/flatnet-v2.1.4-orange)
 ![license](https://img.shields.io/npm/l/flatnet)
 
 Flatnet is an attempt to create a machine learning algorithm that reduces a standard model down to a list of actions to execute on the model outputs, rather than a system of nodes and links.
 
 `npm i flatnet`
 
-TLDR: To quickly jump in and start training a network on data, see [Train](train/readme.md)
+TLDR: To quickly jump in and start training a network on data, see [Train](train/)
 
 ## Module
 

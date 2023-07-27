@@ -19,7 +19,7 @@ SDG.JN
 
 # Ext
 
-![flatnet](https://img.shields.io/badge/flatnet-v2.1.0-orange)
+![flatnet](https://img.shields.io/badge/flatnet-v2.1.4-orange)
 ![license](https://img.shields.io/npm/l/flatnet)
 
 `{Ext}=require('flatnet')`

@@ -19,7 +19,7 @@ SDG.JN
 
 # Network
 
-![flatnet](https://img.shields.io/badge/flatnet-v2.1.0-orange)
+![flatnet](https://img.shields.io/badge/flatnet-v2.1.4-orange)
 ![license](https://img.shields.io/npm/l/flatnet)
 
 `{Network}=require('flatnet')`
@@ -83,7 +83,7 @@ net={
 
 - `Network.Eval(net,inputs=[])`
 - Runs the net models against a set of inputs
-- Flattens the input array before use; see [Flatten](../ext/readme.md#flatten)
+- Flattens the input array before use; see [Flatten](../ext/README.md#flatten)
 - Returns the net object
 
 </br>
