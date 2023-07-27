@@ -51,16 +51,16 @@ A network is an object type containing scores, an action list, models, and a ptr
 ```
 net={
 	scores:{
-		high:0                 	 highest model fitness score
-		,h:0				   	 highest model index position
-		,avg:0				   	 average fitness score of all models
-		,low:9007199254740990  	 lowest model fitness score (max integer init)
-		,l:0				   	 lowest model index position
-		,cycles:0			   	 count of cycles net has performed
+		high:0                   highest model fitness score
+		,h:0                     highest model index position
+		,avg:0                   average fitness score of all models
+		,low:9007199254740990    lowest model fitness score (max integer init)
+		,l:0                     lowest model index position
+		,cycles:0                count of cycles net has performed
 	}
-	,PTRCNT:()=>ptr_count	   	 ptr_count getter
-	,actions:[]					 actions list
-	,models:[]				   	 models array
+	,PTRCNT:()=>ptr_count        ptr_count getter
+	,actions:[]                  actions list
+	,models:[]                   models array
 }
 ```
 
