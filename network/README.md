@@ -58,9 +58,9 @@ net={
 		,l:0                     lowest model index position
 		,cycles:0                count of cycles net has performed
 	}
-	,PTRCNT:()=>ptr_count        ptr_count getter
-	,actions:[]                  actions list
-	,models:[]                   models array
+	,PTRCNT:()=>ptr_count            ptr_count getter
+	,actions:[]                      actions list
+	,models:[]                       models array
 }
 ```
 
